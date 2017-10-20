@@ -9,7 +9,7 @@ var statWrangler = {
   },
   convertStatsToArray (stats) {
     const statToParse = Object.keys(stats)[0]
-
+    console.log(statToParse)
     switch (statToParse) {
       case 'playerPassingStatInfoList':
         stats.playerPassingStatInfoList.map(player => {
