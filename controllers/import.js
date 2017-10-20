@@ -54,7 +54,7 @@ router.post('/*', function (req, res) {
     collection = collection.join('')
   }
 
-  var data = req.body
+  res.end()
   //   remove(label, collection).then(function (response, error) {
   //     if (response == 'REMOVED') {
   //       db.collection(collection).insert({
