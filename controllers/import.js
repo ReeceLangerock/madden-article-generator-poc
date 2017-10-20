@@ -6,6 +6,7 @@ var db = mongoose.connection
 var bodyParser = require('body-parser')
 var data = require('./../data-wranglers/rosterData.json')
 var rosterWrangler = require('./../data-wranglers/rosterWrangler.js')
+var statWrangler = require('./../data-wranglers/statWrangler.js')
 
 router.use(
   bodyParser.json({
@@ -39,15 +40,19 @@ router.post('/*', function (req, res) {
   var label = 'data'
   if (collection.length == 3) {
     collection = collection[2]
-  } else if (collection.includes('week')) {
+  } 
+  else if (collection.includes('week')) {
+      console.log(collection)
     collection = collection.slice(2, 5)
     collection = collection.join('')
     label = Object.keys(req.body)[0]
+    // const parsedStats = statWrangler.parseRoster(req.body.rosterInfoList)
+    // saveRoster(parsed)
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
     label = 'roster'
-    const parsed = rosterWrangler.parseRoster(req.body.rosterInfoList)
-    saveRoster(parsed)
+    const parsedRoster = rosterWrangler.parseRoster(req.body.rosterInfoList)
+    saveRoster(parsedRoster)
     collection = collection.join('')
   } else {
     collection = collection.slice(2, 5)
@@ -77,6 +82,18 @@ function saveRoster (roster) {
     })
   })
 }
+
+function saveStats (roster) {
+    return new Promise(function (resolve, reject) {
+      db.collection(`stats`).insertMany(roster, { ordered: false }, function (err, doc) {
+        if (err) {
+          reject(err)
+        } else {
+          resolve('REMOVED')
+        }
+      })
+    })
+  }
 
 function remove (label, collection) {
   return new Promise(function (resolve, reject) {
