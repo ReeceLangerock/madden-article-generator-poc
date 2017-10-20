@@ -20,6 +20,7 @@ router.use(
 )
 
 router.get('/', function (req, res) {
+  console.log('save')
   const parsed = rosterWrangler.parseRoster(data.data.rosterInfoList)
   saveRoster(parsed)
   res.json(data)
@@ -54,22 +55,26 @@ router.post('/*', function (req, res) {
   }
 
   var data = req.body
-//   remove(label, collection).then(function (response, error) {
-//     if (response == 'REMOVED') {
-//       db.collection(collection).insert({
-//         label: label,
-//         data: data
-//       })
-//       res.end()
-//     }
-//   })
+  //   remove(label, collection).then(function (response, error) {
+  //     if (response == 'REMOVED') {
+  //       db.collection(collection).insert({
+  //         label: label,
+  //         data: data
+  //       })
+  //       res.end()
+  //     }
+  //   })
 })
 
 function saveRoster (roster) {
   return new Promise(function (resolve, reject) {
-    db.collection('roster').insertMany(
-      roster
-    )
+    db.collection('roster').insertMany(roster, { ordered: false }, function (err, doc) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve('REMOVED')
+      }
+    })
   })
 }
 
