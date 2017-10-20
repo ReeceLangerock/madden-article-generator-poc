@@ -46,6 +46,8 @@ router.post('/*', function (req, res) {
       console.log(collection)
     collection = collection.slice(3, 4)
     label = 'roster'
+    const parsed = rosterWrangler.parseRoster(req.body.data.rosterInfoList)
+    saveRoster(parsed)
     collection = collection.join('')
   } else {
     collection = collection.slice(2, 5)
@@ -53,15 +55,15 @@ router.post('/*', function (req, res) {
   }
 
   var data = req.body
-  remove(label, collection).then(function (response, error) {
-    if (response == 'REMOVED') {
-      db.collection(collection).insert({
-        label: label,
-        data: data
-      })
-      res.end()
-    }
-  })
+//   remove(label, collection).then(function (response, error) {
+//     if (response == 'REMOVED') {
+//       db.collection(collection).insert({
+//         label: label,
+//         data: data
+//       })
+//       res.end()
+//     }
+//   })
 })
 
 function saveRoster (roster) {
