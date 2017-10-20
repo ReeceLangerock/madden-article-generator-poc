@@ -1,5 +1,5 @@
 {
-  "name": "revo-gm",
+  "name": "madden-article-generator-poc",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ReeceLangerock/revo-gm2.git"
+    "url": "git+https://github.com/ReeceLangerock/madden-article-generator-poc.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ReeceLangerock/revo-gm2/issues"
+    "url": "https://github.com/ReeceLangerock/madden-article-generator-poc/issues"
   },
-  "homepage": "https://github.com/ReeceLangerock/revo-gm2#readme"
+  "homepage": "https://github.com/ReeceLangerock/madden-article-generator-poc#readme"
 }
