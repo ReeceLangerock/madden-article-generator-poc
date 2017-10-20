@@ -5,8 +5,9 @@ var mongoose = require('mongoose')
 var db = mongoose.connection
 var roster = require('./../models/rosterModel')
 var bodyParser = require('body-parser')
-var data = require('./../data-wranglers/rosterData.json')
+var data = require('./../data-wranglers/passingStats.json')
 var statWrangler = require('./../data-wranglers/statWrangler.js')
+var rosterWrangler = require('./../data-wranglers/rosterWrangler.js')
 
 router.use(
   bodyParser.json({
@@ -21,11 +22,15 @@ router.use(
 )
 
 router.get('/', function (req, res, next) {
+  
   getRoster().then((response, error) => {
     if (error) {
       res.json(false)
     } else {
-      statWrangler.parseStats(response)
+      const parsedRoster = rosterWrangler.convertRosterToObject(response)
+      const calculation = statWrangler.parseStats(data.data)
+      // console.log(calculation)
+      // statWrangler.parseStats(response)
       res.json(response)
     }
   })

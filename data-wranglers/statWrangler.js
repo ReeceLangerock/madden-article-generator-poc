@@ -8,19 +8,39 @@ var statWrangler = {
     })
   },
   parseStats (stats) {
-    stats.map(player => {
-      // console.log(player['_id'])
-      // console.log(player.firstName)
-      this.roster[player['_id']] = {
-        firstName: player.firstName,
-        lastName: player.lastName,
-        position: player.position
-      }
-      // console.log('-')
-      
-    })
-    this.printState()
-    return this.roster
+    const statToParse = Object.keys(stats)[0]
+
+    switch (statToParse) {
+      case 'playerPassingStatInfoList':
+        stats.playerPassingStatInfoList.map(player => {
+          this.stats[player.rosterId] = {
+            passTDs: player.passTDs,
+            passInts: player.passInts,
+            passYds: player.passYds
+          }
+        })
+
+        break
+
+      default:
+    }
+
+    // stats.map(player => {
+    //   // console.log(player['_id'])
+    //   // console.log(player.firstName)
+    //   this.stats[player.rosterId] = {
+    //     passTDs: player.passTDs,
+    //     passInts: player.passInts,
+    //     passYds: player.passYds
+    //   }
+    //   // console.log('-')
+
+    // })
+    // console.log(roster)
+    // this.printState()
+    console.log(this.stats)
+
+    return this.stats
   }
 }
 

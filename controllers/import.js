@@ -45,13 +45,13 @@ router.post('/*', function (req, res) {
       console.log(collection)
     collection = collection.slice(2, 5)
     collection = collection.join('')
-    label = Object.keys(req.body)[0]
-    // const parsedStats = statWrangler.parseRoster(req.body.rosterInfoList)
-    // saveRoster(parsed)
+    collectionName = Object.keys(req.body)[0]
+    const parsedStats = statWrangler.convertStatsToArray(req.body)
+    saveToDb(parsedStats, collectionName)
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
     label = 'roster'
-    const parsedRoster = rosterWrangler.parseRoster(req.body.rosterInfoList)
+    const parsedRoster = rosterWrangler.convertRosterToArray(req.body.rosterInfoList)
     saveRoster(parsedRoster)
     collection = collection.join('')
   } else {
@@ -83,9 +83,9 @@ function saveRoster (roster) {
   })
 }
 
-function saveStats (roster) {
+function saveToDb (data, collectionName) {
     return new Promise(function (resolve, reject) {
-      db.collection(`stats`).insertMany(roster, { ordered: false }, function (err, doc) {
+      db.collection(collectionName).insertMany(data, { ordered: false }, function (err, doc) {
         if (err) {
           reject(err)
         } else {
