@@ -13,11 +13,12 @@ var statWrangler = {
     switch (statToParse) {
       case 'playerPassingStatInfoList':
         stats.playerPassingStatInfoList.map(player => {
-          this.statsArray.push({
+          this.statsArray.playerPassingStatInfoList.push({
             _id: player.rosterId,
             passTDs: player.passTDs,
             passInts: player.passInts,
-            passYds: player.passYds
+            passYds: player.passYds,
+            teamId: player.teamId
           })
         })
 
@@ -25,11 +26,12 @@ var statWrangler = {
 
       case 'playerReceivingStatInfoList':
         stats.playerReceivingStatInfoList.map(player => {
-          this.statsArray.push({
+          this.statsArray.playerReceivingStatInfoList.push({
             _id: player.rosterId,
             recCatches: player.recCatches,
             recTDs: player.recTDs,
-            recYds: player.recYds
+            recYds: player.recYds,
+            teamId: player.teamId
           })
         })
 
@@ -37,11 +39,12 @@ var statWrangler = {
 
       case 'playerRushingStatInfoList':
         stats.playerRushingStatInfoList.map(player => {
-          this.statsArray.push({
+          this.statsArray.playerRushingStatInfoList.push({
             _id: player.rosterId,
             rushFum: player.rushFum,
             rushTDs: player.rushTDs,
-            rushYds: player.rushYds
+            rushYds: player.rushYds,
+            teamId: player.teamId
           })
         })
 
