@@ -22,13 +22,24 @@ router.use(
 )
 
 router.get('/', function (req, res, next) {
-  
-  getRoster().then((response, error) => {
+  // getRoster().then((response, error) => {
+  //   if (error) {
+  //     res.json(false)
+  //   } else {
+  //     const parsedRoster = rosterWrangler.convertRosterToObject(response)
+  //     const calculation = statWrangler.parseStats(data.data)
+  //     // console.log(calculation)
+  //     // statWrangler.parseStats(response)
+  //     res.json(response)
+  //   }
+  // })
+
+  getStats().then((response, error) => {
     if (error) {
       res.json(false)
     } else {
-      const parsedRoster = rosterWrangler.convertRosterToObject(response)
-      const calculation = statWrangler.parseStats(data.data)
+      // const parsedRoster = rosterWrangler.convertRosterToObject(response)
+      // const calculation = statWrangler.parseStats(data.data)
       // console.log(calculation)
       // statWrangler.parseStats(response)
       res.json(response)
@@ -39,15 +50,26 @@ router.get('/', function (req, res, next) {
 
 function getRoster () {
   return new Promise(function (resolve, reject) {
-    roster
-      .find({})
-      .exec(function (err, doc) {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(doc)
-        }
-      })
+    roster.find({}).exec(function (err, doc) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(doc)
+      }
+    })
+  })
+}
+
+function getStats () {
+  return new Promise(function (resolve, reject) {
+    db.collection('weekreg1').find({}).toArray(function (err, doc) {
+      if (err) {
+        reject(err)
+      } else {
+        console.log(doc)
+        resolve(doc)
+      }
+    })
   })
 }
 

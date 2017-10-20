@@ -10,12 +10,11 @@ var statWrangler = {
   },
   convertStatsToArray (stats) {
     const statToParse = Object.keys(stats)[0]
-    var data = {}
     switch (statToParse) {
       case 'playerPassingStatInfoList':
-        data.playerPassingStatInfoList = []
+        playerPassingStatInfoList = []
         stats.playerPassingStatInfoList.map(player => {
-          data.playerPassingStatInfoList.push({
+          playerPassingStatInfoList.push({
             _id: player.rosterId,
             passTDs: player.passTDs,
             passInts: player.passInts,
@@ -23,13 +22,13 @@ var statWrangler = {
             teamId: player.teamId
           })
         })
-
+        return playerPassingStatInfoList
         break
 
       case 'playerReceivingStatInfoList':
-        data.playerReceivingStatInfoList = []
+        playerReceivingStatInfoList = []
         stats.playerReceivingStatInfoList.map(player => {
-          data.playerReceivingStatInfoList.push({
+          playerReceivingStatInfoList.push({
             _id: player.rosterId,
             recCatches: player.recCatches,
             recTDs: player.recTDs,
@@ -37,13 +36,13 @@ var statWrangler = {
             teamId: player.teamId
           })
         })
-
+        return playerReceivingStatInfoList
         break
 
       case 'playerRushingStatInfoList':
-        data.playerRushingStatInfoList = []
+        playerRushingStatInfoList = []
         stats.playerRushingStatInfoList.map(player => {
-          data.playerRushingStatInfoList.push({
+          playerRushingStatInfoList.push({
             _id: player.rosterId,
             rushFum: player.rushFum,
             rushTDs: player.rushTDs,
@@ -51,31 +50,11 @@ var statWrangler = {
             teamId: player.teamId
           })
         })
-
+        return playerRushingStatInfoList
         break
 
       default:
-        data = undefined
-    }
-
-    // stats.map(player => {
-    //   // console.log(player['_id'])
-    //   // console.log(player.firstName)
-    //   this.stats[player.rosterId] = {
-    //     passTDs: player.passTDs,
-    //     passInts: player.passInts,
-    //     passYds: player.passYds
-    //   }
-    //   // console.log('-')
-
-    // })
-    // console.log(roster)
-    // this.printState()
-    // console.log(this.stats)
-
-    // console.log(this.stats)
-    if (data) {
-      return data
+        return false
     }
   },
 
