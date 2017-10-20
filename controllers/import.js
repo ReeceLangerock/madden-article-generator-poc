@@ -45,9 +45,8 @@ router.post('/*', function (req, res) {
     collection = collection.join('')
     collectionName = Object.keys(req.body)[0]
     const parsedStats = statWrangler.convertStatsToArray(req.body)
-    console.log(collectionName)
     if (parsedStats) {
-      saveToDb(parsedStats, collection)
+      saveToDb(parsedStats, collectionName)
     }
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
@@ -85,7 +84,6 @@ function saveRoster (roster) {
 }
 
 function saveToDb (data, collectionName) {
-  console.log(collectionName)
   return new Promise(function (resolve, reject) {
     db.collection(collectionName).insert({ [collectionName]: data }, function (err, doc) {
       if (err) {
