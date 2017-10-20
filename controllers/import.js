@@ -43,10 +43,10 @@ router.post('/*', function (req, res) {
     collection = collection.join('')
     label = Object.keys(req.body)[0]
   } else if (collection.includes('team') && collection.length > 4) {
-      console.log(collection)
+      console.log(req.body)
     collection = collection.slice(3, 4)
     label = 'roster'
-    const parsed = rosterWrangler.parseRoster(req.body.data.rosterInfoList)
+    const parsed = rosterWrangler.parseRoster(req.body.rosterInfoList)
     saveRoster(parsed)
     collection = collection.join('')
   } else {
