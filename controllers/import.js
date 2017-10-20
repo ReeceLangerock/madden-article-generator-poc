@@ -87,7 +87,7 @@ function saveRoster (roster) {
 function saveToDb (data, collectionName) {
   console.log(collectionName)
   return new Promise(function (resolve, reject) {
-    db.collection(collectionName).insert({ data }, function (err, doc) {
+    db.collection(collectionName).insert({ [collectionName]: data }, function (err, doc) {
       if (err) {
         reject(err)
       } else {
