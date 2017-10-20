@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/ReeceLangerock/madden-article-generator-poc/issues"
   },
-  "homepage": "https://github.com/ReeceLangerock/madden-article-generator-poc#readme"
+  "homepage": "https://github.com/ReeceLangerock/madden-article-generator-poc#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^4.12.3"
+  }
 }
