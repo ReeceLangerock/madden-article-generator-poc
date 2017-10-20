@@ -23,6 +23,30 @@ var statWrangler = {
 
         break
 
+      case 'playerReceivingStatInfoList':
+        stats.playerReceivingStatInfoList.map(player => {
+          this.statsArray.push({
+            _id: player.rosterId,
+            recCatches: player.recCatches,
+            recTDs: player.recTDs,
+            recYds: player.recYds
+          })
+        })
+
+        break
+
+      case 'playerRushingStatInfoList':
+        stats.playerRushingStatInfoList.map(player => {
+          this.statsArray.push({
+            _id: player.rosterId,
+            rushFum: player.rushFum,
+            rushTDs: player.rushTDs,
+            rushYds: player.rushYds
+          })
+        })
+
+        break
+
       default:
     }
 
