@@ -40,13 +40,12 @@ router.post('/*', function (req, res) {
   var label = 'data'
   if (collection.length == 3) {
     collection = collection[2]
-  } 
-  else if (collection.includes('week')) {
-      collection = collection.slice(2, 5)
-      collection = collection.join('')
-      collectionName = Object.keys(req.body)[0]
-      const parsedStats = statWrangler.convertStatsToArray(req.body)
-      console.log(collectionName)
+  } else if (collection.includes('week')) {
+    collection = collection.slice(2, 5)
+    collection = collection.join('')
+    collectionName = Object.keys(req.body)[0]
+    const parsedStats = statWrangler.convertStatsToArray(req.body)
+    console.log(collectionName)
     saveToDb(parsedStats, collection)
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
@@ -84,17 +83,17 @@ function saveRoster (roster) {
 }
 
 function saveToDb (data, collectionName) {
-    console.log(collectionName)
-    return new Promise(function (resolve, reject) {
-      db.collection(collectionName).insertMany(data, { ordered: false }, function (err, doc) {
-        if (err) {
-          reject(err)
-        } else {
-          resolve('REMOVED')
-        }
-      })
+  console.log(collectionName)
+  return new Promise(function (resolve, reject) {
+    db.collection(collectionName).insert({ data }, function (err, doc) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve('REMOVED')
+      }
     })
-  }
+  })
+}
 
 function remove (label, collection) {
   return new Promise(function (resolve, reject) {
