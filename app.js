@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 var port = process.env.PORT || 3000;
 var app = express();
+var config = require('./config.js');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({
     limit: '50mb'
@@ -14,9 +15,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-var mongoUser = process.env.DB_USERNAME //|| config.getMongoUser();
-var mongoPass = process.env.DB_PASSWORD //|| config.getMongoPass()
-mongodb://<dbuser>:<dbpassword>@ds125555.mlab.com:25555/madden-article-generator
+var mongoUser = process.env.DB_USERNAME || config.getMongoUser();
+var mongoPass = process.env.DB_PASSWORD || config.getMongoPass()
 
 mongoose.connect(`mongodb://${mongoUser}:${mongoPass}@ds125555.mlab.com:25555/madden-article-generator`);
 var db = mongoose.connection;
@@ -39,10 +39,10 @@ app.use(function(req, res, next){
 });*/
 
 //ROUTES
-app.use('/', require('./controllers/index'));
-app.use('/standings', require('./controllers/standings'));
-app.use('/schedules', require('./controllers/schedules'));
-app.use('/recap', require('./controllers/gamerecap'));
+// app.use('/', require('./controllers/index'));
+// app.use('/standings', require('./controllers/standings'));
+// app.use('/schedules', require('./controllers/schedules'));
+// app.use('/recap', require('./controllers/gamerecap'));
 app.use('/import', require('./controllers/import'));
 
 /*app.use(function (req, res, next) {
