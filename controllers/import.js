@@ -43,10 +43,10 @@ router.post('/*', function (req, res) {
   } else if (collection.includes('week')) {
     collection = collection.slice(2, 5)
     collection = collection.join('')
-    collectionName = Object.keys(req.body)[0]
+    fieldName = Object.keys(req.body)[0]
     const parsedStats = statWrangler.convertStatsToArray(req.body)
     if (parsedStats) {
-      saveToDb(parsedStats, collectionName)
+      saveToDb(parsedStats, collection, fieldName)
     }
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
@@ -83,9 +83,9 @@ function saveRoster (roster) {
   })
 }
 
-function saveToDb (data, collectionName) {
+function saveToDb (data, collectionName, fieldName) {
   return new Promise(function (resolve, reject) {
-    db.collection(collectionName).insert({ [collectionName]: data }, function (err, doc) {
+    db.collection(collectionName).insert({ [fieldName]: data }, function (err, doc) {
       if (err) {
         reject(err)
       } else {
