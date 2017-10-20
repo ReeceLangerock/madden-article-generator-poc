@@ -1,5 +1,6 @@
 var statWrangler = {
-  stats: {},
+  statsArray: [],
+  statsObject: {},
   printState: function (test) {
     // console.log(this.roster)
 
@@ -11,36 +12,52 @@ var statWrangler = {
     const statToParse = Object.keys(stats)[0]
     switch (statToParse) {
       case 'playerPassingStatInfoList':
-      stats.playerPassingStatInfoList.map(player => {
-        this.stats[player.rosterId] = {
-          passTDs: player.passTDs,
-          passInts: player.passInts,
-          passYds: player.passYds
-        }
-      })
-      
-      break
-      
+        stats.playerPassingStatInfoList.map(player => {
+          this.statsArray.push({
+            _id: player.rosterId,
+            passTDs: player.passTDs,
+            passInts: player.passInts,
+            passYds: player.passYds
+          })
+        })
+
+        break
+
       default:
     }
-    
+
     // stats.map(player => {
-      //   // console.log(player['_id'])
+    //   // console.log(player['_id'])
     //   // console.log(player.firstName)
     //   this.stats[player.rosterId] = {
-      //     passTDs: player.passTDs,
-      //     passInts: player.passInts,
-      //     passYds: player.passYds
-      //   }
-      //   // console.log('-')
-      
-      // })
-      // console.log(roster)
-      // this.printState()
-      // console.log(this.stats)
-      
-      console.log(this.stats)
-    return this.stats
+    //     passTDs: player.passTDs,
+    //     passInts: player.passInts,
+    //     passYds: player.passYds
+    //   }
+    //   // console.log('-')
+
+    // })
+    // console.log(roster)
+    // this.printState()
+    // console.log(this.stats)
+
+    // console.log(this.stats)
+    return this.statsArray
+  },
+
+  convertStatsToObject (stats) {
+    stats.map(player => {
+      // console.log(player['_id'])
+      this.statsObject[player['_id']] = {
+        passTDs: player.passTDs || undefined,
+        passInts: player.passInts || undefined,
+        passYds: player.passYds || undefined
+      }
+      // console.log('-')
+    })
+    // this.printState()
+    // console.log(this.rosterObject)
+    return this.rosterObject
   }
 }
 
