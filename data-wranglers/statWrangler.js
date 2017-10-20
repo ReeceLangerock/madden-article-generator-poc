@@ -7,7 +7,7 @@ var statWrangler = {
       console.log(this.roster[player])
     })
   },
-  parseStats (stats) {
+  convertStatsToArray (stats) {
     const statToParse = Object.keys(stats)[0]
 
     switch (statToParse) {
@@ -38,7 +38,7 @@ var statWrangler = {
     // })
     // console.log(roster)
     // this.printState()
-    console.log(this.stats)
+    // console.log(this.stats)
 
     return this.stats
   }
