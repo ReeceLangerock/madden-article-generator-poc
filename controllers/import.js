@@ -66,7 +66,6 @@ router.post('/*', function (req, res) {
 })
 
 function saveRoster (roster) {
-    console.log('save',roster)
   return new Promise(function (resolve, reject) {
     db.collection('roster').insertMany(
       roster
