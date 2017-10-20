@@ -10,10 +10,11 @@ var statWrangler = {
   },
   convertStatsToArray (stats) {
     const statToParse = Object.keys(stats)[0]
+    var data = {}
     switch (statToParse) {
       case 'playerPassingStatInfoList':
         stats.playerPassingStatInfoList.map(player => {
-          this.statsArray.playerPassingStatInfoList.push({
+          data.playerPassingStatInfoList.push({
             _id: player.rosterId,
             passTDs: player.passTDs,
             passInts: player.passInts,
@@ -26,7 +27,7 @@ var statWrangler = {
 
       case 'playerReceivingStatInfoList':
         stats.playerReceivingStatInfoList.map(player => {
-          this.statsArray.playerReceivingStatInfoList.push({
+          data.playerReceivingStatInfoList.push({
             _id: player.rosterId,
             recCatches: player.recCatches,
             recTDs: player.recTDs,
@@ -39,7 +40,7 @@ var statWrangler = {
 
       case 'playerRushingStatInfoList':
         stats.playerRushingStatInfoList.map(player => {
-          this.statsArray.playerRushingStatInfoList.push({
+          data.playerRushingStatInfoList.push({
             _id: player.rosterId,
             rushFum: player.rushFum,
             rushTDs: player.rushTDs,
@@ -69,7 +70,7 @@ var statWrangler = {
     // console.log(this.stats)
 
     // console.log(this.stats)
-    return this.statsArray
+    return data
   },
 
   convertStatsToObject (stats) {
