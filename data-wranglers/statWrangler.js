@@ -14,6 +14,7 @@ var statWrangler = {
     switch (statToParse) {
       case 'playerPassingStatInfoList':
         stats.playerPassingStatInfoList.map(player => {
+          date.playerPassingStatInfoList = []
           data.playerPassingStatInfoList.push({
             _id: player.rosterId,
             passTDs: player.passTDs,
@@ -27,6 +28,8 @@ var statWrangler = {
 
       case 'playerReceivingStatInfoList':
         stats.playerReceivingStatInfoList.map(player => {
+          date.playerReceivingStatInfoList = []
+
           data.playerReceivingStatInfoList.push({
             _id: player.rosterId,
             recCatches: player.recCatches,
@@ -40,6 +43,8 @@ var statWrangler = {
 
       case 'playerRushingStatInfoList':
         stats.playerRushingStatInfoList.map(player => {
+          date.playerRushingStatInfoList = []
+
           data.playerRushingStatInfoList.push({
             _id: player.rosterId,
             rushFum: player.rushFum,
