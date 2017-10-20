@@ -46,7 +46,7 @@ router.post('/*', function (req, res) {
       collection = collection.join('')
       collectionName = Object.keys(req.body)[0]
       const parsedStats = statWrangler.convertStatsToArray(req.body)
-    //   console.log(parsedStats)
+      console.log(collectionName)
     saveToDb(parsedStats, collection)
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
