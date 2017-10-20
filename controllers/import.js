@@ -42,12 +42,12 @@ router.post('/*', function (req, res) {
     collection = collection[2]
   } 
   else if (collection.includes('week')) {
+      collection = collection.slice(2, 5)
+      collection = collection.join('')
+      collectionName = Object.keys(req.body)[0]
       console.log(collection)
-    collection = collection.slice(2, 5)
-    collection = collection.join('')
-    collectionName = Object.keys(req.body)[0]
     const parsedStats = statWrangler.convertStatsToArray(req.body)
-    saveToDb(parsedStats, collectionName)
+    saveToDb(parsedStats, collection)
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
     label = 'roster'

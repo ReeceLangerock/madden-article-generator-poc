@@ -1,5 +1,5 @@
 var statWrangler = {
-  roster: {},
+  stats: {},
   printState: function (test) {
     // console.log(this.roster)
 
