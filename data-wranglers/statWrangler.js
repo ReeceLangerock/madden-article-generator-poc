@@ -55,7 +55,7 @@ var statWrangler = {
         break
 
       default:
-        date = undefined
+        data = undefined
     }
 
     // stats.map(player => {
