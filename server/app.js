@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 var port = process.env.PORT || 3001;
 var app = express();
-// var config = require('./config.js');
+var config = require('./config.js');
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({
     limit: '50mb'
@@ -23,8 +23,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-var mongoUser = process.env.DB_USERNAME// || config.getMongoUser();
-var mongoPass = process.env.DB_PASSWORD// || config.getMongoPass()
+var mongoUser = process.env.DB_USERNAME || config.getMongoUser();
+var mongoPass = process.env.DB_PASSWORD || config.getMongoPass()
 
 mongoose.connect(`mongodb://${mongoUser}:${mongoPass}@ds125555.mlab.com:25555/madden-article-generator`);
 var db = mongoose.connection;

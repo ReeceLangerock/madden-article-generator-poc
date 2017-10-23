@@ -105,7 +105,8 @@ export class FantasyOutput extends React.Component {
           Passing Leaders
         </SectionTitle>
         <PositionContainer>
-          <Image src='http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/16757.png&amp;w=65&amp;h=90&amp;scale=crop&amp;background=0xcccccc&amp;transparent=false' />
+          
+          <Image src={`http://daddyleagues.com/img/m18/players/large/${this.props.topFive.qb[0].portraitId || ''}.png`} />
 
           <Table>
             <tbody>

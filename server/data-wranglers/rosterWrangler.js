@@ -9,7 +9,9 @@ var rosterWrangler = {
           _id: player.rosterId,
           firstName: player.firstName,
           lastName: player.lastName,
-          position: player.position
+          position: player.position,
+          portraitId: player.portraitId
+          
         })
       }
     })
