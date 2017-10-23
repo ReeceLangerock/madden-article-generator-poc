@@ -25,9 +25,8 @@
     "styled-components": "^2.1.2"
   },
   "scripts": {
-    "start": "concurrently \"yarn run start:client\" \"yarn run start:server\"",
     "start:client": "react-scripts start",
-    "start:server": "node server/app.js",
+    "start": "node server/app.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
