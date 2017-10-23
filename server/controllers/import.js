@@ -49,6 +49,7 @@ router.post('/*', function (req, res) {
       saveToDb(parsedStats, collection, fieldName)
     }
   } else if (collection.includes('team') && collection.length > 4) {
+    console.log('rostering')
     collection = collection.slice(3, 4)
     label = 'roster'
     const parsedRoster = rosterWrangler.convertRosterToArray(req.body.rosterInfoList)

@@ -5,7 +5,8 @@ var rosterSchema = mongoose.Schema({
   _id: String,
   firstName: String,
   lastName: String,
-  position: String
+  position: String,
+  portraitId: String
 })
 
 rosterSchema.methods.newRoster = function (data, userID) {
