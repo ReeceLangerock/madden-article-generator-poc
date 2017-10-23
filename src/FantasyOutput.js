@@ -99,6 +99,11 @@ export class FantasyOutput extends React.Component {
   }
   render () {
     let topFive = this.props.topFive
+    let qbImage = '#'
+    console.log(this.props.topFive  )
+    if(this.props.topFive.qbs){
+    qbImage = `http://daddyleagues.com/img/m18/players/large/${this.props.topFive.qb[0].portraitId}.png` || '';
+    }
     return (
       <FantasyContainer>
         <SectionTitle className='fantasy__section-title'>
@@ -106,7 +111,7 @@ export class FantasyOutput extends React.Component {
         </SectionTitle>
         <PositionContainer>
           
-          <Image src={`http://daddyleagues.com/img/m18/players/large/${this.props.topFive.qb[0].portraitId || ''}.png`} />
+          <Image src={qbImage} />
 
           <Table>
             <tbody>
