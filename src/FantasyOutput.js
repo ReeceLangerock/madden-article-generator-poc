@@ -9,30 +9,47 @@ const FantasyContainer = styled.div`
 margin: 0 auto;
 display: flex;
 flex-direction: column;
-width: 600px;
+width: 715px;
 
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
 
 `
 
 const PositionContainer = styled.div`
-border-radius: 2px;
-padding: 5px 10px;
+padding: 2px;
 background: white;
 display: flex;
 align-items: flex-end;
-border: 1px solid`
+border: 2px solid ${props => props.primary ? '#003399' : '#ff0000'};`
 
 const Table = styled.table`
-font-size: 11px;
-width: 500px;`
+font-size: 14px;
+width: calc(100% - 90px);
+
+td:nth-child(1){
+  text-align: left;
+}
+`
 
 const SectionTitle = styled.div`
-padding: 1px 0px 1px 5px;
-background: green;
-font-size: 20px;`
+color :#ffffff;
+padding: 2px 0px 2px 5px;
+	background: ${props => props.primary ? '#003399' : '#ff0000'};
+font-size: 20px;
+font-weight: bold;
+
+:nth-child(2) {
+    background: red;
+}
+`
 
 const Image = styled.img`
-clear: both;`
+height: 90px;
+margin-right:0px;`
 
 export class FantasyOutput extends React.Component {
   componentWillMount () {
@@ -42,18 +59,18 @@ export class FantasyOutput extends React.Component {
   renderTopPlayer () {
     return this.props.topFive.qb.map((player, index) => {
       return (
-        <tr>
+        <tr key = {`qbRow${index}`}>
 
           <td>{index + 1}. {`${player.firstName} ${player.lastName}`}</td>
           <td>TM</td>
 
-          <td class='sortcell'>{player.passYds}</td>
+          <td className='sortcell'>{player.passYds}</td>
           <td>{player.passTDs}</td>
           <td>{player.passInts}</td>
           <td>{player.rushYds}</td>
           <td>{player.rushTDs}</td>
           <td>{player.rushFum}</td>
-          <td>{player.totalScore.toPrecision(4)}</td>
+          <td>{player.totalScore.toPrecision(3)}</td>
         </tr>
       )
     })
@@ -62,7 +79,8 @@ export class FantasyOutput extends React.Component {
   renderReceiver (position) {
     return this.props.topFive[position].map((player, index) => {
       return (
-        <tr>
+        <tr key = {`${position}Row${index}`}>
+        
 
           <td>{index + 1}. {`${player.firstName} ${player.lastName}`}</td>
           <td>TM</td>
@@ -73,7 +91,7 @@ export class FantasyOutput extends React.Component {
           <td>{player.rushYds || 0}</td>
           <td>{player.rushTDs || 0}</td>
           <td>{player.rushFum || 0}</td>
-          <td>{player.totalScore.toPrecision(4)}</td>
+          <td>{player.totalScore.toPrecision(3)}</td>
         </tr>
       )
     })
@@ -81,7 +99,8 @@ export class FantasyOutput extends React.Component {
   renderHB (position) {
     return this.props.topFive[position].map((player, index) => {
       return (
-        <tr>
+        <tr key = {`hbRow${index}`}>
+
 
           <td>{index + 1}. {`${player.firstName} ${player.lastName}`}</td>
           <td>TM</td>
@@ -92,31 +111,45 @@ export class FantasyOutput extends React.Component {
           <td>{player.recTDs || 0}</td>
           <td>{player.rushFum || 0}</td>
 
-          <td>{player.totalScore.toPrecision(4)}</td>
+          <td>{player.totalScore.toPrecision(3)}</td>
         </tr>
       )
     })
   }
   render () {
     let topFive = this.props.topFive
-    let qbImage = '#'
-    console.log(this.props.topFive  )
-    if(this.props.topFive.qbs){
-    qbImage = `http://daddyleagues.com/img/m18/players/large/${this.props.topFive.qb[0].portraitId}.png` || '';
+    //get placeholder image
+    let qbImage, hbImage, wrImage, teImage;
+    if(topFive.qb[0]){
+    qbImage = `http://daddyleagues.com/img/m18/players/large/${topFive.qb['0'].portraitId}.png` || '';
+    }
+    if(this.props.topFive.wr[0]){
+    wrImage = `http://daddyleagues.com/img/m18/players/large/${topFive.wr['0'].portraitId}.png` || '';
+    }
+  if(this.props.topFive.te[0]){
+    teImage = `http://daddyleagues.com/img/m18/players/large/${topFive.te['0'].portraitId}.png` || '';
+    }
+  if(this.props.topFive.hb[0]){
+    hbImage = `http://daddyleagues.com/img/m18/players/large/${topFive.hb['0'].portraitId}.png` || '';
     }
     return (
       <FantasyContainer>
-        <SectionTitle className='fantasy__section-title'>
+        <SectionTitle primary className='fantasy__section-title'>
           Passing Leaders
         </SectionTitle>
-        <PositionContainer>
+        <PositionContainer primary>
           
           <Image src={qbImage} />
 
           <Table>
             <tbody>
-
-              <tr class='colhead' align='left'>
+{/* 
+               <tr className='colhead' align='left'>
+                <td colSpan ={2}></td>
+                <td colSpan ={3}><span title='Passing yards'>Passing</span></td>
+                <td colSpan ={3}><span title='Passing yards'>Rushing</span></td>
+              </tr> */}
+              <tr className='colhead' align='left'>
                 <td>PLAYER</td>
                 <td>TEAM</td>
                 <td><span title='Passing yards'>P.YDS</span></td>
@@ -136,18 +169,18 @@ export class FantasyOutput extends React.Component {
         <br />
 
         <SectionTitle className='fantasy__section-title'>
-          <td>Top Fantasy Wide Receivers</td>
+          Top Fantasy Wide Receivers
         </SectionTitle>
         <PositionContainer>
-          <Image src='http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/16757.png&amp;w=65&amp;h=90&amp;scale=crop&amp;background=0xcccccc&amp;transparent=false' />
+          <Image src={wrImage} />
 
           <Table>
             <tbody>
 
-              <tr class='colhead' align='left'>
+              <tr className='colhead' align='left'>
                 <td>PLAYER</td>
                 <td>TEAM</td>
-                <td><span title='Receiving yards'>CATCHES</span></td>
+                <td><span title='Receiving yards'>REC</span></td>
                 <td><span title='Receiving yards'>REC.YDS</span></td>
                 <td><span title='Passing touchdowns'>REC.TD</span></td>
                 <td><span title='Passing yards'>RUSH.YDS</span></td>
@@ -163,19 +196,19 @@ export class FantasyOutput extends React.Component {
 
         <br />
 
-        <SectionTitle className='fantasy__section-title'>
-          <td>Top Fantasy Tight Ends</td>
+        <SectionTitle primary className='fantasy__section-title'>
+          Top Fantasy Tight Ends
         </SectionTitle>
-        <PositionContainer>
-          <Image src='http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/16757.png&amp;w=65&amp;h=90&amp;scale=crop&amp;background=0xcccccc&amp;transparent=false' />
+        <PositionContainer primary>
+          <Image src={teImage} />
 
           <Table>
             <tbody>
 
-              <tr class='colhead' align='left'>
+              <tr className='colhead' align='left'>
                 <td>PLAYER</td>
                 <td>TEAM</td>
-                <td><span title='Receiving yards'>CATCHES</span></td>
+                <td><span title='Receiving yards'>REC</span></td>
                 <td><span title='Receiving yards'>REC.YDS</span></td>
                 <td><span title='Passing touchdowns'>REC.TD</span></td>
                 <td><span title='Passing yards'>RUSH.YDS</span></td>
@@ -192,20 +225,20 @@ export class FantasyOutput extends React.Component {
         <br />
 
         <SectionTitle className='fantasy__section-title'>
-          <td>Top Fantasy Running Backs</td>
+          Top Fantasy Running Backs
         </SectionTitle>
         <PositionContainer>
-          <Image src='http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/16757.png&amp;w=65&amp;h=90&amp;scale=crop&amp;background=0xcccccc&amp;transparent=false' />
+          <Image src={hbImage} />
 
           <Table>
             <tbody>
 
-              <tr class='colhead' align='left'>
+              <tr className='colhead' align='left'>
                 <td>PLAYER</td>
                 <td>TEAM</td>
                 <td><span title='Passing yards'>RUSH.YDS</span></td>
                 <td><span title='Passing touchdowns'>RUSH.TD</span></td>
-                <td><span title='Receiving yards'>CATCHES</span></td>
+                <td><span title='Receiving yards'>REC</span></td>
                 <td><span title='Receiving yards'>REC.YDS</span></td>
                 <td><span title='Passing touchdowns'>REC.TD</span></td>
 
