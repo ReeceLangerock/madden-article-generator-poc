@@ -6,8 +6,9 @@ var db = mongoose.connection
 var roster = require('./../models/rosterModel')
 var bodyParser = require('body-parser')
 var data = require('./../data-wranglers/passingStats.json')
-var statWrangler = require('./../data-wranglers/statWrangler.js')
+var calculationWrangler = require('./../data-wranglers/calculationWrangler.js')
 var rosterWrangler = require('./../data-wranglers/rosterWrangler.js')
+var statWrangler = require('./../data-wranglers/statWrangler.js')
 
 router.use(
   bodyParser.json({
@@ -21,30 +22,18 @@ router.use(
   })
 )
 
-router.get('/', function (req, res, next) {
-  // getRoster().then((response, error) => {
-  //   if (error) {
-  //     res.json(false)
-  //   } else {
-  //     const parsedRoster = rosterWrangler.convertRosterToObject(response)
-  //     const calculation = statWrangler.parseStats(data.data)
-  //     // console.log(calculation)
-  //     // statWrangler.parseStats(response)
-  //     res.json(response)
-  //   }
-  // })
-
-  getStats().then((response, error) => {
-    if (error) {
-      res.json(false)
-    } else {
-      // const parsedRoster = rosterWrangler.convertRosterToObject(response)
-      // const calculation = statWrangler.parseStats(data.data)
-      // console.log(calculation)
-      // statWrangler.parseStats(response)
-      res.json(response)
-    }
-  })
+router.get('/', async function (req, res, next) {
+  try {
+    const roster = await getRoster()
+    const stats = await getStats()
+    const parsedRoster = rosterWrangler.convertRosterToObject(roster)
+    const parsedStats = statWrangler.convertStatsToObject(stats)
+    const rosterWithStats = calculationWrangler.parseStats(parsedRoster, parsedStats)
+    const rosterWithPPRScore = calculationWrangler.calculatePprScores(parsedRoster)
+    res.json(rosterWithPPRScore)
+  } catch (e) {
+    next(e)
+  }
 })
 // This accepts all posts requests!
 
@@ -62,11 +51,10 @@ function getRoster () {
 
 function getStats () {
   return new Promise(function (resolve, reject) {
-    db.collection('weekreg1').find({}).toArray(function (err, doc) {
+    db.collection('weekreg17').find({}).toArray(function (err, doc) {
       if (err) {
         reject(err)
       } else {
-        console.log(doc)
         resolve(doc)
       }
     })

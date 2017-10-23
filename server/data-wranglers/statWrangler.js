@@ -59,18 +59,12 @@ var statWrangler = {
   },
 
   convertStatsToObject (stats) {
-    stats.map(player => {
-      // console.log(player['_id'])
-      this.statsObject[player['_id']] = {
-        passTDs: player.passTDs || undefined,
-        passInts: player.passInts || undefined,
-        passYds: player.passYds || undefined
-      }
-      // console.log('-')
+    stats.map(statCategory => {
+      let key = Object.keys(statCategory)[1]
+      this.statsObject[key] = statCategory[key]
     })
-    // this.printState()
-    // console.log(this.rosterObject)
-    return this.rosterObject
+
+    return this.statsObject
   }
 }
 

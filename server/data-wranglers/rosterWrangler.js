@@ -23,7 +23,8 @@ var rosterWrangler = {
           this.rosterObject[player['_id']] = {
               firstName: player.firstName,
               lastName: player.lastName,
-              position: player.position
+              position: player.position,
+              portraitId: player.portraitId
             }
             // console.log('-')
         })
