@@ -12,9 +12,7 @@ flex-direction: column;
 width: 715px;
 
 table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    text-align: center;
+    
 }
 
 `
@@ -29,7 +27,9 @@ border: 2px solid ${props => props.primary ? '#003399' : '#ff0000'};`
 const Table = styled.table`
 font-size: 14px;
 width: calc(100% - 90px);
-
+border: 1px solid black;
+border-collapse: collapse;
+text-align: center;
 td:nth-child(1){
   text-align: left;
 }
@@ -42,9 +42,7 @@ padding: 2px 0px 2px 5px;
 font-size: 20px;
 font-weight: bold;
 
-:nth-child(2) {
-    background: red;
-}
+
 `
 
 const Image = styled.img`
@@ -137,11 +135,11 @@ export class FantasyOutput extends React.Component {
         <SectionTitle primary className='fantasy__section-title'>
           Passing Leaders
         </SectionTitle>
-        <PositionContainer primary>
+        <PositionContainer primary className ='fantasy__position-container'>
           
-          <Image src={qbImage} />
+          <Image className = "fantasy__image" src={qbImage} />
 
-          <Table>
+          <Table className = 'fantasy__table'>
             <tbody>
 {/* 
                <tr className='colhead' align='left'>
@@ -168,13 +166,13 @@ export class FantasyOutput extends React.Component {
 
         <br />
 
-        <SectionTitle className='fantasy__section-title'>
+        <SectionTitle className='fantasy__section-title-secondary'>
           Top Fantasy Wide Receivers
         </SectionTitle>
-        <PositionContainer>
-          <Image src={wrImage} />
+        <PositionContainer className ='fantasy__position-container-secondary'>
+          <Image className = "fantasy__image" src={wrImage} />
 
-          <Table>
+          <Table className = 'fantasy__table'>
             <tbody>
 
               <tr className='colhead' align='left'>
@@ -199,10 +197,10 @@ export class FantasyOutput extends React.Component {
         <SectionTitle primary className='fantasy__section-title'>
           Top Fantasy Tight Ends
         </SectionTitle>
-        <PositionContainer primary>
-          <Image src={teImage} />
+        <PositionContainer primary className ='fantasy__position-container'>
+          <Image className = "fantasy__image" src={teImage} />
 
-          <Table>
+          <Table className = 'fantasy__table'>
             <tbody>
 
               <tr className='colhead' align='left'>
@@ -224,13 +222,13 @@ export class FantasyOutput extends React.Component {
 
         <br />
 
-        <SectionTitle className='fantasy__section-title'>
+        <SectionTitle className='fantasy__section-title-secondary'>
           Top Fantasy Running Backs
         </SectionTitle>
-        <PositionContainer>
-          <Image src={hbImage} />
+        <PositionContainer className ='fantasy__position-container-secondary'>
+          <Image className = "fantasy__image" src={hbImage} />
 
-          <Table>
+          <Table className = 'fantasy__table'>
             <tbody>
 
               <tr className='colhead' align='left'>
