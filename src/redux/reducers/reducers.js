@@ -16,3 +16,17 @@ export const fantasyReducer = (
       return state
   }
 }
+
+export const breakdownReducer = (
+  state = {
+    breakdowns: []
+  },
+  action
+) => {
+  switch (action.type) {
+    case 'SAVE_BREAKDOWN_RESULTS':
+      return { ...state, breakdowns: action.data }
+    default:
+      return state
+  }
+}

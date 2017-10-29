@@ -30,14 +30,13 @@ router.get('/', function (req, res) {
 
 router.post('/*', function (req, res) {
   var leagueID = req.params[0].split('/')[1]
-  
+
   /* if (leagueID != "5414177") {
     console.log("Nice try, asshole.");
     res.send("Nice try, asshole.");
   } */
-  
+
   var collection = req.params[0].split('/')
-  console.log('collection', collection)
   var label = 'data'
   if (collection.length === 3 && !collection.includes('leagueteams')) {
     collection = collection[2]
@@ -50,20 +49,24 @@ router.post('/*', function (req, res) {
       saveToDb(parsedStats, collection, fieldName)
     }
   } else if (collection.includes('leagueteams')) {
-    console.log('league teams')
     fieldName = Object.keys(req.body)[0]
 
-    console.log(req.body.leagueTeamInfoList)
     saveToDb(req.body.leagueTeamInfoList, 'leagueteams', fieldName)
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
-    label = 'roster'
     const parsedRoster = rosterWrangler.convertRosterToArray(req.body.rosterInfoList)
     const teamPositionalBreakdown = rosterWrangler.getPositionalTotals(req.body.rosterInfoList)
-    saveRoster(parsedRoster)
-    saveTeamPositionals(teamPositionalBreakdown)
+    remove('roster').then(function (response, error) {
+      if (response == 'REMOVED') {
+        saveRoster(parsedRoster)
+      }
+    })
+    remove('teamPositionals').then(function (response, error) {
+      if (response == 'REMOVED') {
+        saveTeamPositionals(teamPositionalBreakdown)
+      }
+    })
     collection = collection.join('')
-  } else if (collection.includes('leagueteams')) {
   } else {
     collection = collection.slice(2, 5)
     collection = collection.join('')
@@ -117,11 +120,9 @@ function saveToDb (data, collectionName, fieldName) {
   })
 }
 
-function remove (label, collection) {
+function remove (collection) {
   return new Promise(function (resolve, reject) {
-    db.collection(collection).remove({
-      label: label
-    }, function (err, doc) {
+    db.collection(collection).remove({}, function (err, doc) {
       if (err) {
         reject(err)
       } else {

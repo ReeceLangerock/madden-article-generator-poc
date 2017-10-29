@@ -28,11 +28,13 @@ router.get('/', async function (req, res, next) {
     const teamInfo = await getLeague()
     const breakdown = breakdownCheck.checkPositionalBreakdown(teamsBreakdowns)
     const breakdownWithTeamNames = breakdownCheck.addNames(breakdown, teamInfo)
-    // const parsedRoster = rosterWrangler.convertRosterToObject(roster)
-    // const parsedStats = statWrangler.convertStatsToObject(stats)
-    // const rosterWithStats = calculationWrangler.parseStats(parsedRoster, parsedStats)
-    // const rosterWithPPRScore = calculationWrangler.calculatePprScores(parsedRoster)
-    res.json(breakdownWithTeamNames)
+    if (breakdownWithTeamNames.length === 0) {
+      res.json({
+        message: 'All Teams meet requirements'
+      })
+    } else {
+      res.json(breakdownWithTeamNames)
+    }
   } catch (e) {
     next(e)
   }

@@ -25,7 +25,7 @@ class App extends React.Component {
               <main>
                 <Switch>
                   <Route exact path='/fantasy' component={FantasyOutput} />
-                  {/* <Route exact path='/police' component={PositionalPolice} /> */}
+                  {<Route exact path='/police' component={PositionalPolice} />}
 
                   {/* <Route path="*" component={Footer} /> */}
                 </Switch>

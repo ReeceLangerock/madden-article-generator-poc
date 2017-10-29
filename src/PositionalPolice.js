@@ -5,256 +5,60 @@ import { connect } from 'react-redux'
 
 import * as actions from './redux/actions/actions'
 
-const FantasyContainer = styled.div`
-margin: 0 auto;
-display: flex;
-flex-direction: column;
-width: 715px;
-
-table, th, td {
-    
-}
+const TeamName = styled.h5`
+text-decoration: underline;
+margin: 0;
 
 `
-
-const PositionContainer = styled.div`
-padding: 2px;
-background: white;
-display: flex;
-align-items: flex-end;
-border: 2px solid ${props => props.primary ? '#003399' : '#ff0000'};`
-
-const Table = styled.table`
-font-size: 14px;
-width: calc(100% - 90px);
-border: 1px solid black;
-border-collapse: collapse;
-text-align: center;
-td:nth-child(1){
-  text-align: left;
-}
+const List = styled.ul`
+margin-top: 0px;
 `
 
-const SectionTitle = styled.div`
-color :#ffffff;
-padding: 2px 0px 2px 5px;
-	background: ${props => props.primary ? '#003399' : '#ff0000'};
-font-size: 20px;
-font-weight: bold;
-
-
-`
-
-const Image = styled.img`
-height: 90px;
-margin-right:0px;`
 
 export class PositionalPolice extends React.Component {
   componentWillMount () {
-    this.props.getTeams()
+    this.props.getPositionalBreakdown()
   }
 
-  renderTopPlayer () {
-    return this.props.topFive.qb.map((player, index) => {
-      return (
-        <tr key = {`qbRow${index}`}>
+  renderTeams () {
+    if (this.props.breakdowns) {
+      return this.props.breakdowns.map(team => {
+        return (
+          <div key={team.id}>
+            <TeamName>{team.teamName}</TeamName>
+            <List>
+              {team.qb > 0 && <li>QB Needed: {team.qb}</li>}
+              {team.hb > 0 && <li>HB Needed: {team.hb}</li>}
+              {team.te > 0 && <li>TE Needed: {team.te}</li>}
+              {team.swing > 0 && team.hb === 0 && team.te === 0 && <li>Swing Player Needed: {team.swing}</li>}
+              {team.wr > 0 && <li>WR Needed: {team.wr}</li>}
+              {team.ol > 0 && <li>OL Needed: {team.ol}</li>}
 
-          <td>{index + 1}. {`${player.firstName} ${player.lastName}`}</td>
-          <td>TM</td>
+              {team.lb > 0 && <li>LB Needed: {team.lb}</li>}
+              {team.db > 0 && <li>DB Needed: {team.db}</li>}
+              {team.dl > 0 && <li>DL Needed: {team.dl}</li>}
 
-          <td className='sortcell'>{player.passYds}</td>
-          <td>{player.passTDs || 0}</td>
-          <td>{player.passInts || 0}</td>
-          <td>{player.rushYds || 0}</td>
-          <td>{player.rushTDs || 0}</td>
-          <td>{player.rushFum || 0}</td>
-          <td>{player.totalScore.toPrecision(3)}</td>
-        </tr>
-      )
-    })
-  }
+              {team.p > 0 && <li>P Needed: {team.p}</li>}
+              {team.k > 0 && <li>K Needed: {team.k}</li>}
 
-  renderReceiver (position) {
-    return this.props.topFive[position].map((player, index) => {
-      return (
-        <tr key = {`${position}Row${index}`}>
-        
+              {team.total < 48 && <li>Minimum {48 - team.total} players need to be added</li>}
+              {team.total > 53 && <li>Minimum {team.total -53} players need to be cut</li>}
+         
+              
 
-          <td>{index + 1}. {`${player.firstName} ${player.lastName}`}</td>
-          <td>TM</td>
-
-          <td>{player.recCatches || 0}</td>
-          <td>{player.recYds || 0}</td>
-          <td>{player.recTDs || 0}</td>
-          <td>{player.rushYds || 0}</td>
-          <td>{player.rushTDs || 0}</td>
-          <td>{player.rushFum || 0}</td>
-          <td>{player.totalScore.toPrecision(3)}</td>
-        </tr>
-      )
-    })
-  }
-  renderHB (position) {
-    return this.props.topFive[position].map((player, index) => {
-      return (
-        <tr key = {`hbRow${index}`}>
-
-
-          <td>{index + 1}. {`${player.firstName} ${player.lastName}`}</td>
-          <td>TM</td>
-          <td>{player.rushYds || 0}</td>
-          <td>{player.rushTDs || 0}</td>
-          <td>{player.recCatches || 0}</td>
-          <td>{player.recYds || 0}</td>
-          <td>{player.recTDs || 0}</td>
-          <td>{player.rushFum || 0}</td>
-
-          <td>{player.totalScore.toPrecision(3)}</td>
-        </tr>
-      )
-    })
+            </List>
+            <br/>
+          </div>
+        )
+      })
+    }
   }
   render () {
-    let topFive = this.props.topFive
-    //get placeholder image
-    let qbImage, hbImage, wrImage, teImage;
-    if(topFive.qb[0]){
-    qbImage = `http://daddyleagues.com/img/m18/players/large/${topFive.qb['0'].portraitId}.png` || '';
-    }
-    if(this.props.topFive.wr[0]){
-    wrImage = `http://daddyleagues.com/img/m18/players/large/${topFive.wr['0'].portraitId}.png` || '';
-    }
-  if(this.props.topFive.te[0]){
-    teImage = `http://daddyleagues.com/img/m18/players/large/${topFive.te['0'].portraitId}.png` || '';
-    }
-  if(this.props.topFive.hb[0]){
-    hbImage = `http://daddyleagues.com/img/m18/players/large/${topFive.hb['0'].portraitId}.png` || '';
-    }
-    return (
-      <FantasyContainer>
-        <SectionTitle primary className='fantasy__section-title'>
-          Passing Leaders
-        </SectionTitle>
-        <PositionContainer primary className ='fantasy__position-container'>
-          
-          <Image className = "fantasy__image" src={qbImage} />
-
-          <Table className = 'fantasy__table'>
-            <tbody>
-{/* 
-               <tr className='colhead' align='left'>
-                <td colSpan ={2}></td>
-                <td colSpan ={3}><span title='Passing yards'>Passing</span></td>
-                <td colSpan ={3}><span title='Passing yards'>Rushing</span></td>
-              </tr> */}
-              <tr className='colhead' align='left'>
-                <td>PLAYER</td>
-                <td>TEAM</td>
-                <td><span title='Passing yards'>P.YDS</span></td>
-                <td><span title='Passing touchdowns'>P.TD</span></td>
-                <td><span title='Interceptions thrown'>INT</span></td>
-                <td><span title='Passing yards'>R.YDS</span></td>
-                <td><span title='Passing touchdowns'>R.TD</span></td>
-                <td><span title='Fumbles lost'>FUM</span></td>
-                <td><span title='Passer (QB) Rating'>PTS</span></td>
-              </tr>
-
-              {this.renderTopPlayer()}
-            </tbody>
-          </Table>
-        </PositionContainer>
-
-        <br />
-
-        <SectionTitle className='fantasy__section-title-secondary'>
-          Top Fantasy Wide Receivers
-        </SectionTitle>
-        <PositionContainer className ='fantasy__position-container-secondary'>
-          <Image className = "fantasy__image" src={wrImage} />
-
-          <Table className = 'fantasy__table'>
-            <tbody>
-
-              <tr className='colhead' align='left'>
-                <td>PLAYER</td>
-                <td>TEAM</td>
-                <td><span title='Receiving yards'>REC</span></td>
-                <td><span title='Receiving yards'>REC.YDS</span></td>
-                <td><span title='Passing touchdowns'>REC.TD</span></td>
-                <td><span title='Passing yards'>RUSH.YDS</span></td>
-                <td><span title='Passing touchdowns'>RUSH.TD</span></td>
-                <td><span title='Fumbles lost'>FUM</span></td>
-                <td><span title='Passer (QB) Rating'>PTS</span></td>
-              </tr>
-
-              {this.renderReceiver('wr')}
-            </tbody>
-          </Table>
-        </PositionContainer>
-
-        <br />
-
-        <SectionTitle primary className='fantasy__section-title'>
-          Top Fantasy Tight Ends
-        </SectionTitle>
-        <PositionContainer primary className ='fantasy__position-container'>
-          <Image className = "fantasy__image" src={teImage} />
-
-          <Table className = 'fantasy__table'>
-            <tbody>
-
-              <tr className='colhead' align='left'>
-                <td>PLAYER</td>
-                <td>TEAM</td>
-                <td><span title='Receiving yards'>REC</span></td>
-                <td><span title='Receiving yards'>REC.YDS</span></td>
-                <td><span title='Passing touchdowns'>REC.TD</span></td>
-                <td><span title='Passing yards'>RUSH.YDS</span></td>
-                <td><span title='Passing touchdowns'>RUSH.TD</span></td>
-                <td><span title='Fumbles lost'>FUM</span></td>
-                <td><span title='Passer (QB) Rating'>PTS</span></td>
-              </tr>
-
-              {this.renderReceiver('te')}
-            </tbody>
-          </Table>
-        </PositionContainer>
-
-        <br />
-
-        <SectionTitle className='fantasy__section-title-secondary'>
-          Top Fantasy Running Backs
-        </SectionTitle>
-        <PositionContainer className ='fantasy__position-container-secondary'>
-          <Image className = "fantasy__image" src={hbImage} />
-
-          <Table className = 'fantasy__table'>
-            <tbody>
-
-              <tr className='colhead' align='left'>
-                <td>PLAYER</td>
-                <td>TEAM</td>
-                <td><span title='Passing yards'>RUSH.YDS</span></td>
-                <td><span title='Passing touchdowns'>RUSH.TD</span></td>
-                <td><span title='Receiving yards'>REC</span></td>
-                <td><span title='Receiving yards'>REC.YDS</span></td>
-                <td><span title='Passing touchdowns'>REC.TD</span></td>
-
-                <td><span title='Fumbles lost'>FUM</span></td>
-                <td><span title='Passer (QB) Rating'>PTS</span></td>
-              </tr>
-
-              {this.renderHB('hb')}
-            </tbody>
-          </Table>
-        </PositionContainer>
-
-      </FantasyContainer>
-    )
+    return <div>{this.renderTeams()}</div>
   }
 }
 
 const mapStateToProps = state => ({
-  topFive: state.fantasyReducer.players
+  breakdowns: state.breakdownReducer.breakdowns
 })
 export default connect(mapStateToProps, actions)(PositionalPolice)

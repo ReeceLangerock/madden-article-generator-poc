@@ -18,7 +18,7 @@ var statWrangler = {
         id: team['_id'],
         qb: team.qbCount < 2 ? 2 - team.qbCount : 0,
         hb: team.hbCount < 3 ? 3 - team.hbCount : 0,
-        te: team.teCount < 3 ? 2 - team.teCount : 0,
+        te: team.teCount < 3 ? 3 - team.teCount : 0,
         swing: swingPlayers < 7 ? 7 - swingPlayers : 0,
         wr: team.wrCount < 5 ? 5 - team.wrCount : 0,
         ol: team.olCount < 7 ? 7 - team.olCount : 0,
