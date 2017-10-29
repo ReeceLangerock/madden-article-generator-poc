@@ -58,6 +58,13 @@ var rosterWrangler = {
         case 'TE':
           teCount++
           break
+        case 'LT':
+        case 'LG':
+        case 'C':
+        case 'RG':
+        case 'RT':
+          olCount++
+          break
         // Defensive Players
         case 'RE':
         case 'LE':
@@ -89,6 +96,7 @@ var rosterWrangler = {
       qbCount,
       wrCount,
       hbCount,
+      teCount,
       fbCount,
       olCount,
       dlCount,

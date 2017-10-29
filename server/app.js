@@ -58,6 +58,7 @@ app.use(function(req, res, next){
 // app.use('/recap', require('./controllers/gamerecap'));
 app.use('/import', require('./controllers/import'))
 app.use('/calculate', require('./controllers/calculate'))
+app.use('/breakdown', require('./controllers/positionalCheck'))
 
 /* app.use(function (req, res, next) {
   res.status(404).render('404');
