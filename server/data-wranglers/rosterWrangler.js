@@ -36,7 +36,7 @@ var rosterWrangler = {
 
   getPositionalTotals (team) {
     let qbCount, wrCount, teCount, hbCount, fbCount, olCount, dlCount, lbCount, dbCount, kCount, pCount, total
-    let teamId = players[0].teamId
+    let teamId = team[0].teamId
     let positionalBreakdown = []
 
     team.map(player => {

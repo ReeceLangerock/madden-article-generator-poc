@@ -29,15 +29,15 @@ router.get('/', function (req, res) {
 // This accepts all posts requests!
 
 router.post('/*', function (req, res) {
-  console.log('params', req.params)
   var leagueID = req.params[0].split('/')[1]
-
+  
   /* if (leagueID != "5414177") {
-        console.log("Nice try, asshole.");
-        res.send("Nice try, asshole.");
-    } */
-
+    console.log("Nice try, asshole.");
+    res.send("Nice try, asshole.");
+  } */
+  
   var collection = req.params[0].split('/')
+  console.log('collection', req.params)
   var label = 'data'
   if (collection.length == 3) {
     collection = collection[2]
