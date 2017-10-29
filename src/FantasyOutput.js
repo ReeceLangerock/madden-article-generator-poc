@@ -63,11 +63,11 @@ export class FantasyOutput extends React.Component {
           <td>TM</td>
 
           <td className='sortcell'>{player.passYds}</td>
-          <td>{player.passTDs}</td>
-          <td>{player.passInts}</td>
-          <td>{player.rushYds}</td>
-          <td>{player.rushTDs}</td>
-          <td>{player.rushFum}</td>
+          <td>{player.passTDs || 0}</td>
+          <td>{player.passInts || 0}</td>
+          <td>{player.rushYds || 0}</td>
+          <td>{player.rushTDs || 0}</td>
+          <td>{player.rushFum || 0}</td>
           <td>{player.totalScore.toPrecision(3)}</td>
         </tr>
       )

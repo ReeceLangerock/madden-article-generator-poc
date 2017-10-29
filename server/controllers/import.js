@@ -29,6 +29,7 @@ router.get('/', function (req, res) {
 // This accepts all posts requests!
 
 router.post('/*', function (req, res) {
+  console.log('params', req.params)
   var leagueID = req.params[0].split('/')[1]
 
   /* if (leagueID != "5414177") {
@@ -48,13 +49,17 @@ router.post('/*', function (req, res) {
     if (parsedStats) {
       saveToDb(parsedStats, collection, fieldName)
     }
+  } else if (collection.includes('leagueteams')) {
+    console.log(req.body.leagueTeamInfoList)
   } else if (collection.includes('team') && collection.length > 4) {
-    console.log('rostering')
     collection = collection.slice(3, 4)
     label = 'roster'
     const parsedRoster = rosterWrangler.convertRosterToArray(req.body.rosterInfoList)
+    const teamPositionalBreakdown = rosterWrangler.getPositionalTotals(req.body.rosterInfoList)
     saveRoster(parsedRoster)
+    saveTeamPositionals(parsedRoster)
     collection = collection.join('')
+  } else if (collection.includes('leagueteams')) {
   } else {
     collection = collection.slice(2, 5)
     collection = collection.join('')
@@ -75,6 +80,18 @@ router.post('/*', function (req, res) {
 function saveRoster (roster) {
   return new Promise(function (resolve, reject) {
     db.collection('roster').insertMany(roster, { ordered: false }, function (err, doc) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve('REMOVED')
+      }
+    })
+  })
+}
+
+function saveTeamPositionals (roster) {
+  return new Promise(function (resolve, reject) {
+    db.collection('teamPositionals').insertMany(roster, { ordered: false }, function (err, doc) {
       if (err) {
         reject(err)
       } else {
