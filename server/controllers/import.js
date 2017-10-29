@@ -39,7 +39,7 @@ router.post('/*', function (req, res) {
   var collection = req.params[0].split('/')
   console.log('collection', collection)
   var label = 'data'
-  if (collection.length == 3) {
+  if (collection.length === 3 && !collection.includes('leagueteams')) {
     collection = collection[2]
   } else if (collection.includes('week')) {
     collection = collection.slice(2, 5)
