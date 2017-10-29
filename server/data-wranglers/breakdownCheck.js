@@ -40,15 +40,35 @@ var statWrangler = {
     let badTeams = []
     teams.map(pos => {
       let totalNeeded = pos.qb + pos.swing + pos.wr + pos.ol + pos.lb + pos.db + pos.dl + pos.k + pos.p
-      if(totalNeeded > 0 || pos.total < 48 || pos.total > 53){
+      if (totalNeeded > 0 || pos.total < 48 || pos.total > 53) {
         badTeams.push({
-          pos
-
+          ...pos
         })
       }
     })
 
     return badTeams
+  },
+  parseTeamNames (teams) {
+    parsed = {}
+    teams[0].leagueTeamInfoList.map(team => {
+      parsed[team.teamId] = {
+        name: team.displayName
+      }
+    })
+    return parsed
+  },
+  addNames (breakdowns, teamInfo) {
+    let parsedTeams = this.parseTeamNames(teamInfo)
+    let teamsWithNames = []
+    breakdowns.map(team => {
+      let teamName = parsedTeams[team.id].name
+      teamsWithNames.push({
+        ...team,
+        teamName
+      })
+    })
+    return teamsWithNames
   }
 }
 

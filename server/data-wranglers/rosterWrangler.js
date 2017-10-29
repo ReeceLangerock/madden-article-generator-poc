@@ -40,6 +40,9 @@ var rosterWrangler = {
     let positionalBreakdown = []
 
     team.map(player => {
+      if(player.isOnPracticeSquad){
+        continue;
+      }
       switch (player.position) {
         // Offensive Players
 

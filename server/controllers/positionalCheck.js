@@ -25,13 +25,14 @@ router.use(
 router.get('/', async function (req, res, next) {
   try {
     const teamsBreakdowns = await getBreakdowns()
-    const league = await getLeague()
+    const teamInfo = await getLeague()
     const breakdown = breakdownCheck.checkPositionalBreakdown(teamsBreakdowns)
+    const breakdownWithTeamNames = breakdownCheck.addNames(breakdown, teamInfo)
     // const parsedRoster = rosterWrangler.convertRosterToObject(roster)
     // const parsedStats = statWrangler.convertStatsToObject(stats)
     // const rosterWithStats = calculationWrangler.parseStats(parsedRoster, parsedStats)
     // const rosterWithPPRScore = calculationWrangler.calculatePprScores(parsedRoster)
-    res.json(breakdown)
+    res.json(breakdownWithTeamNames)
   } catch (e) {
     next(e)
   }
