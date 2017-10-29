@@ -50,7 +50,11 @@ router.post('/*', function (req, res) {
       saveToDb(parsedStats, collection, fieldName)
     }
   } else if (collection.includes('leagueteams')) {
+    console.log('league teams')
+    fieldName = Object.keys(req.body)[0]
+
     console.log(req.body.leagueTeamInfoList)
+    saveToDb(req.body.leagueTeamInfoList, 'leagueteams', fieldName)
   } else if (collection.includes('team') && collection.length > 4) {
     collection = collection.slice(3, 4)
     label = 'roster'
