@@ -40,57 +40,58 @@ var rosterWrangler = {
     let positionalBreakdown = []
 
     team.map(player => {
-      if(player.isOnPracticeSquad){
-        continue;
-      }
-      switch (player.position) {
-        // Offensive Players
+      if (player.isOnPracticeSquad) {
+        //do nothing
+      } else {
+        switch (player.position) {
+          // Offensive Players
 
-        case 'QB':
-          qbCount++
-          break
-        case 'HB':
-          hbCount++
-          break
-        case 'FB':
-          fbCount++
-          break
-        case 'WR':
-          wrCount++
-          break
-        case 'TE':
-          teCount++
-          break
-        case 'LT':
-        case 'LG':
-        case 'C':
-        case 'RG':
-        case 'RT':
-          olCount++
-          break
-        // Defensive Players
-        case 'RE':
-        case 'LE':
-        case 'DT':
-          dlCount++
-          break
-        case 'ROLB':
-        case 'MLB':
-        case 'LOLB':
-          lbCount++
-          break
-        case 'SS':
-        case 'FS':
-        case 'CB':
-          dbCount++
-          break
-        // Special Teams
-        case 'K':
-          kCount++
-          break
-        case 'P':
-          pCount++
-          break
+          case 'QB':
+            qbCount++
+            break
+          case 'HB':
+            hbCount++
+            break
+          case 'FB':
+            fbCount++
+            break
+          case 'WR':
+            wrCount++
+            break
+          case 'TE':
+            teCount++
+            break
+          case 'LT':
+          case 'LG':
+          case 'C':
+          case 'RG':
+          case 'RT':
+            olCount++
+            break
+          // Defensive Players
+          case 'RE':
+          case 'LE':
+          case 'DT':
+            dlCount++
+            break
+          case 'ROLB':
+          case 'MLB':
+          case 'LOLB':
+            lbCount++
+            break
+          case 'SS':
+          case 'FS':
+          case 'CB':
+            dbCount++
+            break
+          // Special Teams
+          case 'K':
+            kCount++
+            break
+          case 'P':
+            pCount++
+            break
+        }
       }
     })
 
