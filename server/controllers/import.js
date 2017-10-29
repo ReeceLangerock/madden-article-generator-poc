@@ -37,7 +37,7 @@ router.post('/*', function (req, res) {
   } */
   
   var collection = req.params[0].split('/')
-  console.log('collection', req.params)
+  console.log('collection', collection)
   var label = 'data'
   if (collection.length == 3) {
     collection = collection[2]
@@ -61,7 +61,7 @@ router.post('/*', function (req, res) {
     const parsedRoster = rosterWrangler.convertRosterToArray(req.body.rosterInfoList)
     const teamPositionalBreakdown = rosterWrangler.getPositionalTotals(req.body.rosterInfoList)
     saveRoster(parsedRoster)
-    saveTeamPositionals(parsedRoster)
+    saveTeamPositionals(teamPositionalBreakdown)
     collection = collection.join('')
   } else if (collection.includes('leagueteams')) {
   } else {
