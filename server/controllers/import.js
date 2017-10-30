@@ -56,16 +56,8 @@ router.post('/*', function (req, res) {
     collection = collection.slice(3, 4)
     const parsedRoster = rosterWrangler.convertRosterToArray(req.body.rosterInfoList)
     const teamPositionalBreakdown = rosterWrangler.getPositionalTotals(req.body.rosterInfoList)
-    remove('roster').then(function (response, error) {
-      if (response == 'REMOVED') {
-        saveRoster(parsedRoster)
-      }
-    })
-    remove('teamPositionals').then(function (response, error) {
-      if (response == 'REMOVED') {
-        saveTeamPositionals(teamPositionalBreakdown)
-      }
-    })
+    saveRoster(parsedRoster)
+    saveTeamPositionals(teamPositionalBreakdown)
     collection = collection.join('')
   } else {
     collection = collection.slice(2, 5)
