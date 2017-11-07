@@ -10,7 +10,9 @@ var rosterWrangler = {
           firstName: player.firstName,
           lastName: player.lastName,
           position: player.position,
-          portraitId: player.portraitId
+          portraitId: player.portraitId,
+        teamId: player.teamId
+        
         })
       }
     })
@@ -25,12 +27,12 @@ var rosterWrangler = {
         firstName: player.firstName,
         lastName: player.lastName,
         position: player.position,
-        portraitId: player.portraitId
+        portraitId: player.portraitId,
+        teamId: player.teamId
       }
       // console.log('-')
     })
     // this.printState()
-    console.log(this.rosterObject)
     return this.rosterObject
   },
 

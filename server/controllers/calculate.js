@@ -51,7 +51,7 @@ function getRoster () {
 
 function getStats () {
   return new Promise(function (resolve, reject) {
-    db.collection('weekreg1').find({}).toArray(function (err, doc) {
+    db.collection('weekreg4').find({}).toArray(function (err, doc) {
       if (err) {
         reject(err)
       } else {

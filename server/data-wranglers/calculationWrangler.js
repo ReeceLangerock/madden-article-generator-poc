@@ -66,22 +66,22 @@ var statWrangler = {
     qb = roster.filter((player) => {
       return player.position === 'QB'
     })
-    qb = qb.slice(0,5)
+    qb = qb.slice(0,10)
 
     wr = roster.filter((player) => {
       return player.position === 'WR'
     })
-    wr = wr.slice(0,5)
+    wr = wr.slice(0,10)
 
     te = roster.filter((player) => {
       return player.position === 'TE'
     })
-    te = te.slice(0,5)
+    te = te.slice(0,10)
 
     hb = roster.filter((player) => {
       return player.position === 'HB'
     })
-    hb = hb.slice(0,5)
+    hb = hb.slice(0,10)
 
     return {
       qb,

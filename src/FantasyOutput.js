@@ -137,7 +137,7 @@ export class FantasyOutput extends React.Component {
         </SectionTitle>
         <PositionContainer primary className ='fantasy__position-container'>
           
-          <Image className = "fantasy__image" src={qbImage} />
+          <Image onError={'http://daddyleagues.com/img/m18/players/large/0.png'} className = "fantasy__image" src={qbImage} />
 
           <Table className = 'fantasy__table'>
             <tbody>
@@ -170,7 +170,7 @@ export class FantasyOutput extends React.Component {
           Top Fantasy Wide Receivers
         </SectionTitle>
         <PositionContainer className ='fantasy__position-container-secondary'>
-          <Image className = "fantasy__image" src={wrImage} />
+          <Image  onError={'http://daddyleagues.com/img/m18/players/large/0.png'} className = "fantasy__image" src={wrImage} />
 
           <Table className = 'fantasy__table'>
             <tbody>
@@ -198,11 +198,11 @@ export class FantasyOutput extends React.Component {
           Top Fantasy Tight Ends
         </SectionTitle>
         <PositionContainer primary className ='fantasy__position-container'>
-          <Image className = "fantasy__image" src={teImage} />
+          <Image  onError={'http://daddyleagues.com/img/m18/players/large/0.png'} className = "fantasy__image" src={teImage} />
 
           <Table className = 'fantasy__table'>
             <tbody>
-
+                                                                                                                                                                              
               <tr className='colhead' align='left'>
                 <td>PLAYER</td>
                 <td>TEAM</td>
@@ -226,7 +226,7 @@ export class FantasyOutput extends React.Component {
           Top Fantasy Running Backs
         </SectionTitle>
         <PositionContainer className ='fantasy__position-container-secondary'>
-          <Image className = "fantasy__image" src={hbImage} />
+          <Image  onError={'http://daddyleagues.com/img/m18/players/large/0.png'} className = "fantasy__image" src={hbImage} />
 
           <Table className = 'fantasy__table'>
             <tbody>
